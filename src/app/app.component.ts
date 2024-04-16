@@ -30,11 +30,13 @@ export class AppComponent implements OnInit {
     this.get_weather_details(latitude, longitude);
   }
 
-  onSubmit() {
-    if(this.cityName){
-      this.get_geolocation_data(this.cityName);
+  fetchCitiesOnKeyPress(event: any) {
+    if(event.key === 'Enter'){
+      if(this.cityName){
+        this.cityResults = [];
+        this.get_geolocation_data(this.cityName);
+      }
     }
-    
   }
 
 
@@ -71,10 +73,14 @@ export class AppComponent implements OnInit {
 
   private get_geolocation_data(address: string){
     this.geolocationService.getGeolocation(address).subscribe(data => {
-      // console.log("Result of rest call: ", data);
+      console.log("Result of rest call: ", data);
       data.results.forEach((result: any) => {
-        //console.log("formatted_address: ", result.geometry.location.lat, result.geometry.location.lng);
-        this.cityResults.push({"name": result.formatted_address, "latitude": result.geometry.location.lat, "longitude": result.geometry.location.lng});
+        var country_name = result.address_components[2] !== undefined ? result.address_components[2].long_name : result.address_components[1].long_name;
+        if (country_name === 'Norway' || country_name === 'Sweden' || country_name === 'Denmark' || country_name === 'Finland'){
+          //console.log("formatted_address: ", result.geometry.location.lat, result.geometry.location.lng);
+          this.cityResults.push({"name": result.formatted_address, "latitude": result.geometry.location.lat, "longitude": result.geometry.location.lng});
+        }
+        
       })
     });
     return this.cityResults;
@@ -84,6 +90,7 @@ export class AppComponent implements OnInit {
   selectCity(city: {name: string, latitude: string, longitude: string}) {
     this.selectedCityName = city.name;
     this.get_weather_details(city.latitude, city.longitude);
+    this.cityResults = [];
   }
 
 }// END OF AppComponent OnInit

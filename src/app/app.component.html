@@ -1,11 +1,13 @@
 <div class="search">
-  <form #form="ngForm" (submit)="onSubmit()">
-    <input type="text" placeholder="Search city" name="city" [(ngModel)]="cityName">
+  <form #form="ngForm" class="city-search-form">  <!--(submit)="onSubmit()"-->
+    <input type="text" placeholder="Search city" name="city" [(ngModel)]="cityName" (keypress)="fetchCitiesOnKeyPress($event)">
+    <div class="city-results" *ngIf="cityResults.length > 0"> 
+      <div appGeolocation [latitude]="result.latitude"  [longitude]="result.longitude" *ngFor="let result of cityResults.slice(0, 5)" (click)="selectCity(result)">
+        {{result.name}}
+      </div>
+    </div>
   </form>
-  <div appGeolocation [latitude]="result.latitude"  [longitude]="result.longitude" *ngFor="let result of cityResults.slice(0, 5)" (click)="selectCity(result)">
-    {{result.name}}
-  </div>
-  <!--TODO: ADD SEARCH FILTER FEATURE-->
+  
 </div>
 <div class="container">
   <div class="upper-data">
