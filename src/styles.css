@@ -1,30 +1,38 @@
 :root {
-    --blue-1: #3C429E;
-    --blue-2: #4C52AD;
-    --yellow-1: #FAC742;
+    --green-1: #8DA242;
+    --green-2: #A7BC5B;
+    --yellow-1: #FABB22;
     --white: #FFF;
     --grey-1: #EDEDED;
     --light-transparent: rgba(255,255,255,0.6);
-    --shadow-dark: rgba(0,0,0,0.3);
+    --shadow-dark: rgba(0,0,0,0.1);
     --shadow-light: rgba(255,255,255,0.1);
 }
 
 * {
+    font-family: Maven Pro, Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+
+
+
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 16px;
     width: 100%;
     height: 100vh;
-    background-color: var(--blue-1);
+    background-color: var(--green-2);
 
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.arrow {
+    position: absolute;
+    z-index: 100;
 }
 
 .city-search-form {
@@ -60,9 +68,30 @@ body {
 .container {
     width: 400px;
     height: 80vh;
-    background-color: var(--blue-2);
+    background-color: var(--green-1);
     border-radius: 20px;
     box-shadow: 10px 10px 10px var(--shadow-dark);
+}
+
+.compass {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background-color: var(--green-2);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: 3px;
+}
+
+.current-weather-img {
+    width: 3em !important;
+}
+
+.direction-info {
+    margin-top: 0.7em;
+    display: flex;
+    flex-direction: column;
 }
 
 .upper-data {
@@ -82,7 +111,7 @@ body {
     height: 50%;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    padding: 0.7em;
+    padding: 0.5em;
     display: flex;
     flex-direction: column;
 }
@@ -91,8 +120,8 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 
@@ -101,7 +130,7 @@ body {
     z-index: 1;
     width: 100%;
     height: 100%;
-    background-color: var(--shadow-dark);
+    background-color: var(--shadow-light);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -109,13 +138,13 @@ body {
 }
 
 .location {
-    color: var(--white);
+    color: var(--yellow-1);
     text-align: center;
     font-size: 1.2rem;
 }
 
 .temperature {
-    color: var(--white);
+    color: var(--yellow-1);
     font-size: 4em;
     text-align: center;
     font-weight: 900;
@@ -128,7 +157,7 @@ body {
 
 .more-info-container {
     flex: 1;
-    background-color: var(--shadow-light);
+    background-color: var(--shadow-dark);
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     margin-top: 1em;
@@ -176,13 +205,22 @@ body {
 }
 
 .search input {
-    background-color: var(--shadow-light);
+    background-color: var(--shadow-dark);
     outline: none;
     border: none;
     border-radius: 20px;
     padding: 1em;
-    color: var(--grey-1);
+    color: var(--white);
     font-size: 0.8em;
     text-align: center;
     width: 98%;
 }
+
+.subscript {
+    color: var(--white);
+    font-size: 0.7em;
+    text-align: center;
+    margin: 0.3em 0 0 0.3em;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

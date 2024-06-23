@@ -12,21 +12,24 @@ export class AppComponent implements OnInit {
   // Angular's data binding
   weatherDescription: string | null = null;
   weatherImageUrl: string | null = null;
+  currentPartOfDay: boolean | null = null;
   currentTemperature: number | null = null;
   currentWind: string | null = null;
-  currentWindDirection: string | null = null;
+  currentWindDirection: number | null = 0;
   currentCloudCover: string | null = null;
   cityName?:string;
   selectedCityName?: string;
   cityResults: any[] = [];
+  title = "My Weather";
 
   constructor(private weatherService: WeatherService, private geolocationService: GeolocationService){}
 
   ngOnInit(): void {
     // By default, the app will show the weather for Tromsø
-    this.selectedCityName = 'Tromsø';
+    this.selectedCityName = 'Tromsø'; 
     const latitude = '69.6489';
     const longitude = '18.9551';
+
     this.get_weather_details(latitude, longitude);
   }
 
@@ -46,11 +49,13 @@ export class AppComponent implements OnInit {
   }
 
   private get_weather_details(latitude: string, longitude: string){
+    
     this.weatherService.getWeatherData(latitude, longitude)
       .subscribe(
         (response) => {
           console.log("response: ", response);
           const currentWeatherCode = response.current.weather_code;
+          this.currentPartOfDay = response.current.is_day == 1;
           this.currentTemperature = response.current.temperature_2m;
           this.currentWind = response.current.wind_speed_10m;
           this.currentWindDirection = response.current.wind_direction_10m;
@@ -76,10 +81,10 @@ export class AppComponent implements OnInit {
       console.log("Result of rest call: ", data);
       data.results.forEach((result: any) => {
         var country_name = result.address_components[2] !== undefined ? result.address_components[2].long_name : result.address_components[1].long_name;
-        if (country_name === 'Norway' || country_name === 'Sweden' || country_name === 'Denmark' || country_name === 'Finland'){
+        //if (country_name === 'Norway' || country_name === 'Sweden' || country_name === 'Denmark' || country_name === 'Finland'){
           //console.log("formatted_address: ", result.geometry.location.lat, result.geometry.location.lng);
           this.cityResults.push({"name": result.formatted_address, "latitude": result.geometry.location.lat, "longitude": result.geometry.location.lng});
-        }
+        //}
         
       })
     });

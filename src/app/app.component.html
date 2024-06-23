@@ -11,8 +11,8 @@
 </div>
 <div class="container">
   <div class="upper-data">
-    <img src="../assets/hot.jpg" *ngIf="currentTemperature && currentTemperature > 15">
-    <img src="../assets/cold.jpg" *ngIf="currentTemperature && currentTemperature <= 15">
+    <img class="day-img" src="../assets/day.png" *ngIf="currentPartOfDay == true">
+    <img class="day-img" src="../assets/night.png" *ngIf="currentPartOfDay == false">
 
     <div class="weather-data">
       <div class="location">{{selectedCityName}}</div>
@@ -27,7 +27,7 @@
     <div class="more-info-container">
       <div class="info-block">
         <div class="info-block-label">
-          <img src="{{ weatherImageUrl }}" alt="currentWeatherImage">
+          <img class="current-weather-img" src="{{ weatherImageUrl }}" alt="currentWeatherImage">
           <span>condition</span>
         </div>
         <div class="info-block-value">
@@ -51,7 +51,12 @@
           <span>wind direction</span>
         </div>
         <div class="info-block-value">
-          {{ currentWindDirection }} °
+          <div class="direction-info">
+            <div class="compass">
+              <mat-icon class="arrow" [ngStyle]="{'transform': 'rotate(' + ((currentWindDirection? currentWindDirection:0) + 180) + 'deg)'}">arrow_downward</mat-icon>              <!-- <div class="arrow" ></div> -->
+            </div>
+            <span class="subscript">{{ currentWindDirection }} °</span>
+          </div>
         </div>
       </div>
 
@@ -61,7 +66,7 @@
           <span>wind speed</span>
         </div>
         <div class="info-block-value">
-          {{ currentWind }} km/h
+          {{ currentWind }} <span class="subscript"> km/h</span>
         </div>
       </div>
 

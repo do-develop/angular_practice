@@ -18,14 +18,16 @@ export class WeatherService {
 
   constructor(private http: HttpClient, private geolocationService: GeolocationService) { }
   //constructor(private geolocationService: GeolocationService){}
-  
+
+
   getWeatherData(latitude: string, longitude: string): Observable<any> {
 
     const params = new HttpParams()
       .set('latitude', latitude)
       .set('longitude', longitude)
-      .set('current', 'temperature_2m,weather_code,wind_speed_10m,wind_direction_10m')
-      .set('hourly', 'temperature_2m,precipitation,cloud_cover');
+      .set('current', 'temperature_2m,weather_code,wind_speed_10m,wind_direction_10m,is_day,rain,cloud_cover')
+      .set('hourly', 'temperature_2m,precipitation,cloud_cover')
+      .set("daily", "weather_code,sunrise,sunset,daylight_duration,uv_index_max")
 
     return this.http.post<any>(this.weatherUrl, params)
   }
