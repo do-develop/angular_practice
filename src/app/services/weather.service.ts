@@ -14,11 +14,9 @@ import { GeolocationService } from './geolocation.service';
 export class WeatherService {
 
   private weatherUrl = environment.weatherApiBaseUrl;
-  private weatherDescriptionPath = '../../assets/weather_description.json';
+  private weatherDescriptionPath = './assets/weather_description.json';
 
   constructor(private http: HttpClient, private geolocationService: GeolocationService) { }
-  //constructor(private geolocationService: GeolocationService){}
-
 
   getWeatherData(latitude: string, longitude: string): Observable<any> {
 

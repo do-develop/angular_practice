@@ -15,7 +15,7 @@ export class GeolocationService {
   getGeolocation(address: string): Observable<any> {
 
     // Construct the request URL
-    const url = `${environment.geolocationApiBaseUrl}?address=${encodeURIComponent(address)}&key=${environment.geolocationAPIKey}`;
+    const url = `${environment.geolocationApiBaseUrl}&q=${encodeURIComponent(address)}`;
 
     // Make the HTTP GET request and return the observable
     return this.http.get(url);

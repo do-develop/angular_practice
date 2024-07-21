@@ -78,13 +78,16 @@ export class AppComponent implements OnInit {
 
   private get_geolocation_data(address: string){
     this.geolocationService.getGeolocation(address).subscribe(data => {
-      console.log("Result of rest call: ", data);
-      data.results.forEach((result: any) => {
-        var country_name = result.address_components[2] !== undefined ? result.address_components[2].long_name : result.address_components[1].long_name;
-        //if (country_name === 'Norway' || country_name === 'Sweden' || country_name === 'Denmark' || country_name === 'Finland'){
-          //console.log("formatted_address: ", result.geometry.location.lat, result.geometry.location.lng);
-          this.cityResults.push({"name": result.formatted_address, "latitude": result.geometry.location.lat, "longitude": result.geometry.location.lng});
-        //}
+      //console.log("Result of getGeolocation rest call: ", data);
+      var processedNames = new Set<string>();
+      data.forEach((result: any) => {
+
+        if (processedNames.has(result.display_name)) {
+          return; 
+        }
+
+        processedNames.add(result.display_name);
+        this.cityResults.push({"name": result.display_name, "latitude": result.lat, "longitude": result.lon});
         
       })
     });
